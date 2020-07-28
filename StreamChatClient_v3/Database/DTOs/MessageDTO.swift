@@ -9,7 +9,6 @@ import Foundation
 class MessageDTO: NSManagedObject {
     static let entityName = "MessageDTO"
     
-    @NSManaged var additionalStateRaw: Int16
     @NSManaged var id: String
     @NSManaged var text: String
     @NSManaged var type: String
@@ -24,6 +23,8 @@ class MessageDTO: NSManagedObject {
     @NSManaged var extraData: Data
     @NSManaged var isSilent: Bool
     @NSManaged var reactionScores: [String: Int]
+    
+    @NSManaged var additionalStateRaw: String?
     
     @NSManaged var user: UserDTO
     @NSManaged var mentionedUsers: Set<UserDTO>
@@ -52,6 +53,13 @@ class MessageDTO: NSManagedObject {
         let new = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Self
         new.id = id
         return new
+    }
+    
+    static func fetchRequestForMessagesPendingSend() -> NSFetchRequest<MessageDTO> {
+        let request = NSFetchRequest<MessageDTO>(entityName: entityName)
+        request.predicate = NSPredicate(format: "additionalStateRaw == %@", AdditionMessageState.pendingSend.rawValue)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \MessageDTO.createdDate, ascending: false)]
+        return request
     }
 }
 
@@ -107,6 +115,8 @@ extension MessageModel {
         extraData = try! JSONDecoder.default.decode(ExtraData.Message.self, from: dto.extraData)
         isSilent = dto.isSilent
         reactionScores = dto.reactionScores
+        
+        additionMessageState = dto.additionalStateRaw.flatMap { AdditionMessageState(rawValue: $0) }
         
         author = UserModel.create(fromDTO: dto.user)
         mentionedUsers = Set(dto.mentionedUsers.map(UserModel<ExtraData.User>.create(fromDTO:)))

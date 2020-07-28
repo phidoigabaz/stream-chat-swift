@@ -107,12 +107,12 @@ struct MessagePayload<ExtraData: ExtraDataTypes>: Decodable {
         command: String? = nil,
         args: String? = nil,
         parentId: String? = nil,
-        showReplyInChannel: Bool,
-        mentionedUsers: [UserPayload<ExtraData.User>],
-        replyCount: Int,
+        showReplyInChannel: Bool = false,
+        mentionedUsers: [UserPayload<ExtraData.User>] = [],
+        replyCount: Int = 0,
         extraData: ExtraData.Message,
-        reactionScores: [String: Int],
-        isSilent: Bool
+        reactionScores: [String: Int] = [:],
+        isSilent: Bool = false
     ) {
         self.id = id
         self.type = type

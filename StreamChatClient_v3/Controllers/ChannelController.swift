@@ -61,6 +61,8 @@ public class ChannelController<ExtraData: ExtraDataTypes>: Controller {
             .map(ChannelModel<ExtraData>.create(fromDTO:)) else { return }
         delegate?.channelController(self, didUpdateChannel: channel)
     }
+    
+    public func sendMessage(text: String) {}
 }
 
 public protocol ChannelControllerDelegate: AnyObject {

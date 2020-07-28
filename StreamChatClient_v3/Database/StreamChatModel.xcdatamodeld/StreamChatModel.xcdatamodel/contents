@@ -80,7 +80,7 @@
         </uniquenessConstraints>
     </entity>
     <entity name="MessageDTO" representedClassName="MessageDTO" syncable="YES">
-        <attribute name="additionalStateRaw" optional="YES" attributeType="Integer 16" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="additionalStateRaw" optional="YES" attributeType="String"/>
         <attribute name="args" optional="YES" attributeType="String"/>
         <attribute name="command" optional="YES" attributeType="String"/>
         <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -151,7 +151,7 @@
         <element name="ChannelListQueryDTO" positionX="160" positionY="192" width="128" height="88"/>
         <element name="CurrentUserDTO" positionX="63" positionY="144" width="128" height="118"/>
         <element name="MemberDTO" positionX="0" positionY="63" width="128" height="178"/>
-        <element name="MessageDTO" positionX="27" positionY="72" width="128" height="88"/>
+        <element name="MessageDTO" positionX="27" positionY="72" width="128" height="313"/>
         <element name="TeamDTO" positionX="9" positionY="126" width="128" height="88"/>
         <element name="UserDTO" positionX="-36" positionY="9" width="128" height="253"/>
     </elements>
